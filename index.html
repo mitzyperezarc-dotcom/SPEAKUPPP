@@ -23,3 +23,28 @@
       <h3>Intermedio</h3>
       <p>Presente, Pasado, Conversaciones</p>
       <button>Entrar</
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log("Service Worker registrado ✅"))
+      .catch(err => console.log("Error registrando SW:", err));
+  }
+</script>
+<head>
+  ...
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1aa6a6">
+</head>
+<body>
+  ...
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log("Service Worker registrado ✅"))
+        .catch(err => console.log("Error SW:", err));
+    }
+  </script>
+</body>
+<link rel="stylesheet" href="style.css">
+<script src="scrip.js"></script>
+<img src="logo.jpeg" class="logo-img">
