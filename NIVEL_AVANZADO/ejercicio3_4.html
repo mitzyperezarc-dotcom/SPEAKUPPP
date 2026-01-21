@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3.4 - Critical Reading</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app" style="text-align:left;">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 3.4</h2>
+  <p class="subtitle">Critical Reading</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema3_4.html'">Volver</button>
+ 
+
+</div>
+
+<script>
+const ejercicios = [
+  { texto: "¿Qué indica 'Although' en un texto?", opciones: ["Contraste", "Causa", "Adición"], correcta: 0 },
+  { texto: "El 'Hook' en un párrafo sirve para:", opciones: ["Captar la atención del lector", "Dar la conclusión", "Enumerar ideas"], correcta: 0 },
+  { texto: "¿Qué significa 'Context Clues'?", opciones: ["Pistas del contexto para deducir significado", "Vocabulario difícil", "Errores gramaticales"], correcta: 0 },
+  { texto: "Si el autor usa 'must', indica:", opciones: ["Seguridad / certeza", "Posibilidad", "Opinión personal"], correcta: 0 },
+  { texto: "Past Simple se usa para:", opciones: ["Acciones completadas en el pasado", "Verdades universales", "Acciones futuras"], correcta: 0 }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+  e.opciones.forEach((op, i) => { contenido += `<button onclick="responder(${i})">${op}</button>`; });
+  zona.innerHTML = contenido;
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText = `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+  if(opcion === correcta){ puntos++; res.innerText="✅ ¡Correcto!"; res.style.color="green"; } 
+  else{ res.innerText="❌ Incorrecto"; res.style.color="red"; }
+  actual++;
+  setTimeout(()=>{ actual<ejercicios.length?cargarEjercicio():mostrarFinal(); },1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `<h3>🎉 Resultado Final</h3><p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p><p>${puntos>=4?"¡Excelente!":"Sigue practicando 💪"}</p>`;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

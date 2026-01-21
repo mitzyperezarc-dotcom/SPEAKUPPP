@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 2.2 - SpeakUpp</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 2.2</h2>
+  <p class="subtitle">Frases y Expresiones Comunes</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema2_2.html'">Volver</button>
+
+</div>
+
+<script>
+const ejercicios = [
+  {
+    tipo: "quiz",
+    texto: "¿Cuál es la forma más educada de pedir algo?",
+    opciones: ["I want water", "Could I please have some water?", "Give me water"],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Qué frase se usa para agradecer más enfáticamente que 'Thank you'?",
+    opciones: ["I really appreciate it", "My apologies", "Sorry to bother you"],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Completa la frase con el idiom correcto:",
+    dialogo: "Wait a moment → Hang on a ___",
+    opciones: ["minute", "sec", "time"],
+    correcta: 1
+  },
+  {
+    tipo: "dialogo",
+    texto: "Completa la expresión de escucha activa:",
+    dialogo: "I'm ___ ears",
+    opciones: ["all", "every", "full"],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Qué marcador de transición se usa para ganar tiempo mientras hablas?",
+    opciones: ["Well...", "Moreover", "Besides"],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Qué significa el idiom 'Piece of cake'?",
+    opciones: ["Muy difícil", "Muy fácil", "Confuso"],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Cuál es una disculpa correcta para interrumpir a alguien?",
+    opciones: ["I really appreciate it", "Sorry to bother you, but...", "I'm all ears"],
+    correcta: 1
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+
+  if (e.tipo === "dialogo") {
+    contenido += `<p><strong>${e.dialogo}</strong></p>`;
+  }
+
+  e.opciones.forEach((op, i) => {
+    contenido += `<button onclick="responder(${i})">${op}</button>`;
+  });
+
+  zona.innerHTML = contenido;
+
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+    new Audio("../sonidos/correcto.mp3").play();
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+    new Audio("../sonidos/error.mp3").play();
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < ejercicios.length) {
+      cargarEjercicio();
+    } else {
+      mostrarFinal();
+    }
+  }, 1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p>
+    <p>${puntos >= 5 ? "¡Excelente dominio de frases y expresiones!" : "Sigue practicando 💪"}</p>
+  `;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

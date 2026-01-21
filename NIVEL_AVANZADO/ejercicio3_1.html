@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3.1 - Lectura</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 3.1</h2>
+  <p class="subtitle">Comprensión de Lectura</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <!-- Solo botón para volver al tema -->
+  <button onclick="window.location.href='tema3_1.html'">Volver</button>
+
+</div>
+
+<script>
+const ejercicios = [
+  {
+    texto: "¿Quién ayudó a la hormiga?",
+    opciones: ["Una mariposa", "Una tortuga", "Un conejo"],
+    correcta: 1
+  },
+  {
+    texto: "¿Qué herramienta usó la tortuga para ayudar?",
+    opciones: ["Su fuerte caparazón", "Sus patas", "Su boca"],
+    correcta: 0
+  },
+  {
+    texto: "¿Cuál es la moraleja del texto?",
+    opciones: [
+      "La competencia es importante",
+      "Trabajar juntos nos hace más fuertes",
+      "Siempre debemos hacerlo solos"
+    ],
+    correcta: 1
+  },
+  {
+    texto: "¿Cómo era el camión de helados en Sweetland City?",
+    opciones: [
+      "Pequeño y aburrido",
+      "Gigante y colorido",
+      "Grande pero simple"
+    ],
+    correcta: 1
+  },
+  {
+    texto: "¿Quién repartía los helados en la ciudad?",
+    opciones: ["Un robot llamado Scoopy", "La Alcaldesa Daisy", "Un heladero local"],
+    correcta: 0
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+  e.opciones.forEach((op, i) => {
+    contenido += `<button onclick="responder(${i})">${op}</button>`;
+  });
+
+  zona.innerHTML = contenido;
+
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Pregunta ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < ejercicios.length) {
+      cargarEjercicio();
+    } else {
+      mostrarFinal();
+    }
+  }, 1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p>
+    <p>${puntos === ejercicios.length ? "¡Excelente comprensión!" : "Sigue practicando 💪"}</p>
+  `;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

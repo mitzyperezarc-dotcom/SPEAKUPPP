@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3.2 - Escritura</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app" style="text-align:left;">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 3.2</h2>
+  <p class="subtitle">Práctica de Escritura</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema3_2.html'">Volver</button>
+
+</div>
+
+<script>
+const ejercicios = [
+  {
+    tipo: "quiz",
+    texto: "Elige la opción que sea una oración correcta en tiempo presente.",
+    opciones: ["I plays soccer every day.", "I play soccer every day.", "I playing soccer every day."],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "Selecciona la oración que tiene la estructura Sujeto + Verbo + Complemento correctamente.",
+    opciones: ["She reading a book.", "She reads a book.", "She read book."],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Cuál es la forma correcta de usar un conector simple?",
+    opciones: ["I like apples but I don’t like oranges.", "I like apples also I don’t like oranges.", "I like apples because I don’t like oranges."],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "Identifica la oración con vocabulario variado.",
+    opciones: ["I am happy. I am happy with my dog.", "I am glad. I love my dog.", "I am happy. I am happy with my dog."],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "Elige la oración correcta para presentar información personal.",
+    opciones: ["My name is Maria. I am 12 years old.", "Name Maria. Age 12.", "I Maria. Twelve years."],
+    correcta: 0
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+
+  e.opciones.forEach((op, i) => {
+    contenido += `<button onclick="responder(${i})">${op}</button>`;
+  });
+
+  zona.innerHTML = contenido;
+
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+    // new Audio("../sonidos/correcto.mp3").play();
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+    // new Audio("../sonidos/error.mp3").play();
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < ejercicios.length) {
+      cargarEjercicio();
+    } else {
+      mostrarFinal();
+    }
+  }, 1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p>
+    <p>${puntos >= 4 ? "¡Excelente escritura!" : "Sigue practicando 💪"}</p>
+  `;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

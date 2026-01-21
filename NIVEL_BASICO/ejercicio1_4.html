@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 1.4</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 1.4</h2>
+  <p class="subtitle">Basic Questions</p>
+
+  <div class="nivel">
+    <p id="pregunta"></p>
+
+    <button onclick="responder(0)" id="b1"></button>
+    <button onclick="responder(1)" id="b2"></button>
+    <button onclick="responder(2)" id="b3"></button>
+  </div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema1_4.html'">Volver</button>
+
+</div>
+
+<script>
+const preguntas = [
+  {
+    texto: "¿Cómo se dice '¿Cuál es tu nombre?' en inglés?",
+    opciones: ["What's your name?", "Where are you?", "How old are you?"],
+    correcta: 0
+  },
+  {
+    texto: "¿Cómo se dice '¿De dónde eres?'?",
+    opciones: ["How are you?", "Where are you from?", "What is this?"],
+    correcta: 1
+  },
+  {
+    texto: "¿Cómo se dice '¿Cuántos años tienes?'?",
+    opciones: ["How old are you?", "What time is it?", "How much is it?"],
+    correcta: 0
+  },
+  {
+    texto: "¿Cómo se dice '¿Qué haces?'?",
+    opciones: ["What do you do?", "Where is it?", "Can you help?"],
+    correcta: 0
+  },
+  {
+    texto: "¿Cómo se dice '¿Dónde está...?'?",
+    opciones: ["Where is...?", "What is your name?", "Are you sure?"],
+    correcta: 0
+  },
+  {
+    texto: "¿Cómo se dice '¿Qué hora es?'?",
+    opciones: ["How much is it?", "What time is it?", "What are you doing?"],
+    correcta: 1
+  },
+  {
+    texto: "¿Cómo se dice '¿Qué estás haciendo?'?",
+    opciones: ["What do you like?", "What are you doing?", "Do you understand?"],
+    correcta: 1
+  },
+  {
+    texto: "¿Cómo se dice '¿Estás seguro?'?",
+    opciones: ["Is that true?", "Are you sure?", "May I go?"],
+    correcta: 1
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarPregunta() {
+  const p = preguntas[actual];
+  document.getElementById("pregunta").innerText = p.texto;
+  document.getElementById("b1").innerText = p.opciones[0];
+  document.getElementById("b2").innerText = p.opciones[1];
+  document.getElementById("b3").innerText = p.opciones[2];
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Pregunta ${actual + 1} de ${preguntas.length}`;
+}
+
+function responder(opcion) {
+  const correcta = preguntas[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+    new Audio("../sonidos/correcto.mp3").play();
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+    new Audio("../sonidos/error.mp3").play();
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < preguntas.length) {
+      cargarPregunta();
+    } else {
+      mostrarResultadoFinal();
+    }
+  }, 1000);
+}
+
+function mostrarResultadoFinal() {
+  document.querySelector(".nivel").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${preguntas.length}</p>
+    <p>${puntos >= 6 ? "¡Excelente!" : "Sigue practicando 💪"}</p>
+    <p>Recuerda:</p>
+    <ul>
+      <li>Usa un tono amable 😊</li>
+      <li>Sé claro y conciso ✍️</li>
+      <li>Escucha atentamente 👂</li>
+    </ul>
+  `;
+}
+
+cargarPregunta();
+</script>
+
+</body>
+</html>

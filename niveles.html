@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Niveles - SpeakUpp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <img src="Logo.jpeg" class="logo-img">
+
+    <h2>Elige tu nivel</h2>
+    <p class="subtitle">Selecciona el nivel que deseas estudiar</p>
+
+    <div class="nivel">
+  <h3>Nivel Básico</h3>
+  <p>Aprende vocabulario, números, días y frases simples.</p>
+  <button onclick="irBasico()">Entrar</button>
+</div>
+
+
+    <div class="nivel">
+   
+  <h3>Nivel Intermedio</h3>
+  <p>Mejora tu gramática y conversaciones cotidianas.</p>
+  <button onclick="irIntermedio()">Entrar</button>
+</div>
+
+
+    <div class="nivel">
+  <h3>Nivel Avanzado</h3>
+  <p>Domina el inglés para estudios y trabajo.</p>
+  <button onclick="irAvanzado()">Entrar</button>
+</div>
+
+<button onclick="cerrarSesion()">Cerrar sesión</button>
+
+<script>
+function cerrarSesion() {
+  window.location.href = "login.html";
+}
+</script>
+
+  </div>
+
+  <script>
+  function irBasico() {
+    window.location.href = "NIVEL_BASICO/basico.html";
+  }
+
+  function irIntermedio() {
+    window.location.href = "NIVEL_INTERMEDIO/intermedio.html";
+  }
+
+  function irAvanzado() {
+    window.location.href = "NIVEL_AVANZADO/avanzado.html";
+  }
+  
+</script>
+</body>
+</html>

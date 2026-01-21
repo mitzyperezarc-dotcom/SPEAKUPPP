@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3.3 - Identificación de Estructuras</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app" style="text-align:left;">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 3.3</h2>
+  <p class="subtitle">Identificación de Estructuras</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema3_3.html'">Volver</button>
+ 
+
+</div>
+
+<script>
+const ejercicios = [
+  { texto: "¿Cuál es el orden correcto de una oración en inglés?", opciones: ["Sujeto + Verbo + Objeto", "Verbo + Objeto + Sujeto", "Objeto + Sujeto + Verbo"], correcta: 0 },
+  { texto: "‘However’ indica:", opciones: ["Contraste", "Causa", "Adición"], correcta: 0 },
+  { texto: "La voz pasiva se usa cuando:", opciones: ["El objeto es más importante que el sujeto", "Siempre quieres sonar informal", "No hay sujeto en la oración"], correcta: 0 },
+  { texto: "‘Carry on’ es un ejemplo de:", opciones: ["Phrasal verb", "Verbo simple", "Adjetivo"], correcta: 0 },
+  { texto: "¿Qué indica un conector como ‘Consequently’?", opciones: ["Resultado / consecuencia", "Adición", "Contraste"], correcta: 0 }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+  e.opciones.forEach((op, i) => { contenido += `<button onclick="responder(${i})">${op}</button>`; });
+  zona.innerHTML = contenido;
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText = `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+  if(opcion === correcta){ puntos++; res.innerText="✅ ¡Correcto!"; res.style.color="green"; } 
+  else{ res.innerText="❌ Incorrecto"; res.style.color="red"; }
+  actual++;
+  setTimeout(()=>{ actual<ejercicios.length?cargarEjercicio():mostrarFinal(); },1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `<h3>🎉 Resultado Final</h3><p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p><p>${puntos>=4?"¡Excelente!":"Sigue practicando 💪"}</p>`;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

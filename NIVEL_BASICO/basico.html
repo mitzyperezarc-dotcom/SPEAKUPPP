@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nivel Básico - SpeakUpp</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <img src="../Logo.jpeg" class="logo-img">
+
+    <h2>Nivel Básico</h2>
+    <p class="subtitle">Módulo 1 - Fundamentos del Inglés</p>
+
+    <!-- BARRA DE PROGRESO -->
+    <div class="barra-contenedor">
+      <div class="barra-progreso" id="barra"></div>
+    </div>
+    <p id="porcentaje">0% completado</p>
+
+    <!-- TEMA 1 -->
+    <div class="nivel" id="tema1">
+      <h3 class="tema-titulo">Tema 1.1</h3>
+      <p>Vocabulario básico</p>
+      <button onclick="abrirTema(1, 'tema1_1.html')">Entrar</button>
+      <button onclick="abrirTema(1, 'ejercicio1_1.html')">Practicar</button>
+    </div>
+
+    <!-- TEMA 2 -->
+    <div class="nivel bloqueado" id="tema2">
+      <h3 class="tema-titulo">Tema 1.2 🔒</h3>
+      <p>Presente simple</p>
+      <button onclick="abrirTema(2, 'tema1_2.html')" disabled>Entrar</button>
+      <button onclick="abrirTema(2, 'ejercicio1_2.html')" disabled>Practicar</button>
+    </div>
+
+    <!-- TEMA 3 -->
+    <div class="nivel bloqueado" id="tema3">
+      <h3 class="tema-titulo">Tema 1.3 🔒</h3>
+      <p>Números y fechas</p>
+      <button onclick="abrirTema(3, 'tema1_3.html')" disabled>Entrar</button>
+      <button onclick="abrirTema(3, 'ejercicio1_3.html')" disabled>Practicar</button>
+    </div>
+
+    <!-- TEMA 4 -->
+    <div class="nivel bloqueado" id="tema4">
+      <h3 class="tema-titulo">Tema 1.4 🔒</h3>
+      <p>Preguntas básicas</p>
+      <button onclick="abrirTema(4, 'tema1_4.html')" disabled>Entrar</button>
+      <button onclick="abrirTema(4, 'ejercicio1_4.html')" disabled>Practicar</button>
+    </div>
+
+    <!-- TEMA 5 -->
+    <div class="nivel bloqueado" id="tema5">
+      <h3 class="tema-titulo">Tema 1.5 🔒</h3>
+      <p>Comunicación efectiva</p>
+      <button onclick="abrirTema(5, 'tema1_5.html')" disabled>Entrar</button>
+      <button onclick="abrirTema(5, 'ejercicio1_5.html')" disabled>Practicar</button>
+    </div>
+
+    <button onclick="window.location.href='../niveles.html'">Volver</button>
+
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    function abrirTema(num, url) {
+      localStorage.setItem("basicoCompletado", num);
+      window.location.href = url;
+    }
+
+    const completado = Number(localStorage.getItem("basicoCompletado")) || 0;
+    const total = 5;
+    const porcentaje = Math.round((completado / total) * 100);
+
+    // Barra de progreso
+    document.getElementById("barra").style.width = porcentaje + "%";
+    document.getElementById("porcentaje").innerText = porcentaje + "% completado";
+
+    // Desbloqueo de temas
+    for (let i = 1; i <= completado; i++) {
+      const tema = document.getElementById("tema" + (i + 1));
+      if (tema) {
+        tema.classList.remove("bloqueado");
+        tema.querySelectorAll("button").forEach(btn => {
+          btn.disabled = false;
+        });
+        tema.querySelector("h3").innerHTML = "Tema 1." + (i + 1);
+      }
+    }
+  </script>
+
+</body>
+</html>

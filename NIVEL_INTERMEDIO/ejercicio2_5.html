@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 2.5 - SpeakUpp</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 2.5</h2>
+  <p class="subtitle">Práctica de Conversaciones</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema2_5.html'">Volver</button>
+
+</div>
+
+<script>
+const ejercicios = [
+  {
+    tipo: "dialogo",
+    texto: "Nivel 1: Restaurante - Pedir la cuenta educadamente",
+    dialogo: "Could we ___ the check, please?",
+    opciones: ["have", "get", "take"],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Nivel 1: Restaurante - Pedir comida",
+    dialogo: "I'll ___ the grilled salmon as a main course, please.",
+    opciones: ["have", "take", "want"],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Nivel 2: Networking - Expresar opinión sincera",
+    dialogo: "To be honest, I'm ___. On one hand the building is modern, on the other hand the commute is tiring.",
+    opciones: ["torn", "sure", "happy"],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "Nivel 2: Networking - ¿Qué significa 'Commute'?",
+    opciones: ["El trayecto de casa al trabajo", "La reunión de trabajo", "El almuerzo"],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Nivel 3: Hotel - Reportar problema con aire acondicionado",
+    dialogo: "Hello, this is [Tu nombre] from room 405. I'm afraid there's a small ___.",
+    opciones: ["issue", "fun", "plan"],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Nivel 3: Hotel - Solicitar cambio de habitación si no se arregla",
+    dialogo: "If it can't be fixed soon, would it be possible to ___ rooms?",
+    opciones: ["change", "take", "leave"],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "Nivel 1-3: Shadowing - ¿Cuál es un consejo para mejorar la pronunciación?",
+    opciones: [
+      "Escucha y repite los clips con la misma entonación",
+      "Solo leer en voz baja",
+      "Memorizar sin escuchar"
+    ],
+    correcta: 0
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+
+  if (e.tipo === "dialogo") {
+    contenido += `<p><strong>${e.dialogo}</strong></p>`;
+  }
+
+  e.opciones.forEach((op, i) => {
+    contenido += `<button onclick="responder(${i})">${op}</button>`;
+  });
+
+  zona.innerHTML = contenido;
+
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+    new Audio("../sonidos/correcto.mp3").play();
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+    new Audio("../sonidos/error.mp3").play();
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < ejercicios.length) {
+      cargarEjercicio();
+    } else {
+      mostrarFinal();
+    }
+  }, 1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p>
+    <p>${puntos >= 5 ? "¡Excelente manejo de situaciones cotidianas!" : "Sigue practicando 💪"}</p>
+  `;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

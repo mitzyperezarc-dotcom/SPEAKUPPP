@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - SpeakUp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="Logo.jpeg" class="logo-img">
+
+  <h2>Bienvenido</h2>
+  <p class="subtitle">Inicia sesión para continuar</p>
+
+  <input id="email" type="email" placeholder="Correo electrónico">
+  <input id="password" type="password" placeholder="Contraseña">
+
+  <button id="btn">Entrar</button>
+
+  <p class="link" onclick="window.location.href='registro.html'">
+    ¿No tienes cuenta? Regístrate
+  </p>
+
+</div>
+/
+<script type="module">
+  import { login } from "./firebase.js";
+
+  document.getElementById("btn").onclick = () => {
+    login(email.value, password.value)
+      .then(() => {
+        window.location.href = "niveles.html";
+      })
+      .catch(() => alert("Datos incorrectos ❌"));
+  };
+</script>
+
+</body>
+</html>

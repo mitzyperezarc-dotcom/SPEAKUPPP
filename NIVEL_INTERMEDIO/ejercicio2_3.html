@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 2.3 - SpeakUpp</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 2.3</h2>
+  <p class="subtitle">Situaciones Cotidianas: Restaurante y Hotel</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema2_3.html'">Volver</button>
+
+</div>
+
+<script>
+const ejercicios = [
+  {
+    tipo: "quiz",
+    texto: "¿Cómo reservas una mesa para 3 personas a las 8 PM?",
+    opciones: [
+      "I want a table for 3 at 8 PM",
+      "I’d like to book a table for 3 at 8 PM",
+      "Give me a table for 3 at 8 PM"
+    ],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Cuál es la forma correcta de pedir el menú en un restaurante?",
+    opciones: [
+      "Could we see the menu, please?",
+      "Show us the menu",
+      "I want the menu"
+    ],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "Si tu plato está mal, ¿qué debes decir?",
+    opciones: [
+      "Excuse me, this isn’t what I ordered",
+      "I don’t like it",
+      "Bring another one"
+    ],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Completa la frase para check-in en el hotel:",
+    dialogo: "I’m checking ___ . My name is Ana.",
+    opciones: ["in", "on", "up"],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Solicitando toallas extra en el hotel:",
+    dialogo: "We need some extra ___ , please.",
+    opciones: ["pillows", "towels", "beds"],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "Para pedir ayuda en cualquier lugar, ¿cuál frase es correcta?",
+    opciones: [
+      "Excuse me...",
+      "May I have...",
+      "I’ll have the..."
+    ],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "Para agradecer la ayuda, ¿cuál frase es la más adecuada?",
+    opciones: [
+      "Thank you, I appreciate your help.",
+      "I want to thank you",
+      "Thanks a lot!"
+    ],
+    correcta: 0
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+
+  if (e.tipo === "dialogo") {
+    contenido += `<p><strong>${e.dialogo}</strong></p>`;
+  }
+
+  e.opciones.forEach((op, i) => {
+    contenido += `<button onclick="responder(${i})">${op}</button>`;
+  });
+
+  zona.innerHTML = contenido;
+
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+    new Audio("../sonidos/correcto.mp3").play();
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+    new Audio("../sonidos/error.mp3").play();
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < ejercicios.length) {
+      cargarEjercicio();
+    } else {
+      mostrarFinal();
+    }
+  }, 1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p>
+    <p>${puntos >= 5 ? "¡Excelente manejo de situaciones cotidianas!" : "Sigue practicando 💪"}</p>
+  `;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

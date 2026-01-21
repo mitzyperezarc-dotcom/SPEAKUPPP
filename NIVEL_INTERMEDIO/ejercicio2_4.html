@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 2.4 - SpeakUpp</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 2.4</h2>
+  <p class="subtitle">Opiniones y Sentimientos</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema2_4.html'">Volver</button>
+
+</div>
+
+<script>
+const ejercicios = [
+  {
+    tipo: "quiz",
+    texto: "¿Cómo das tu opinión de manera general?",
+    opciones: [
+      "I think that...",
+      "I want that...",
+      "I am that..."
+    ],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Qué frase formal se usa para mostrar desacuerdo respetuoso?",
+    opciones: [
+      "I beg to differ",
+      "I completely agree",
+      "I can't stand it"
+    ],
+    correcta: 0
+  },
+  {
+    tipo: "dialogo",
+    texto: "Completa la frase para expresar un sentimiento con 'Feel':",
+    dialogo: "I ___ overwhelmed with work",
+    opciones: ["am", "feel", "have"],
+    correcta: 1
+  },
+  {
+    tipo: "dialogo",
+    texto: "Usando adjetivos -ed/-ing: ¿Cuál es correcta?",
+    dialogo: "The movie is ___ (aburrida)",
+    opciones: ["boring", "bored", "bore"],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Qué intensificador se usa para reforzar un sentimiento?",
+    opciones: [
+      "Really",
+      "Maybe",
+      "Could"
+    ],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "Expresión informal para dar tu opinión:",
+    opciones: [
+      "I reckon...",
+      "It appears to me that...",
+      "I have some reservations about..."
+    ],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "Frase formal para expresar duda:",
+    opciones: [
+      "I have some reservations about...",
+      "I'm not sold on that",
+      "I can't stand..."
+    ],
+    correcta: 0
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+
+  if (e.tipo === "dialogo") {
+    contenido += `<p><strong>${e.dialogo}</strong></p>`;
+  }
+
+  e.opciones.forEach((op, i) => {
+    contenido += `<button onclick="responder(${i})">${op}</button>`;
+  });
+
+  zona.innerHTML = contenido;
+
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+    new Audio("../sonidos/correcto.mp3").play();
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+    new Audio("../sonidos/error.mp3").play();
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < ejercicios.length) {
+      cargarEjercicio();
+    } else {
+      mostrarFinal();
+    }
+  }, 1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p>
+    <p>${puntos >= 5 ? "¡Excelente manejo de opiniones y sentimientos!" : "Sigue practicando 💪"}</p>
+  `;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>

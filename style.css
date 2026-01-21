@@ -1,0 +1,238 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #b2f0e6, #e0f7f4);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;  /* YA NO CENTRA VERTICAL */
+  padding: 20px;
+}
+
+
+/* CONTENEDOR PRINCIPAL */
+.app {
+  background: #ffffff;
+  width: 90%;
+  max-width: 420px;
+  padding: 25px;
+  border-radius: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-height: 90vh;       /* Limita altura */
+  overflow-y: auto;      /* Activa scroll */
+}
+
+
+
+/* LOGO */
+.logo-img {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+/* TÍTULOS */
+h2 {
+  color: #1aa6a6;
+  margin: 10px 0 5px;
+}
+
+.subtitle {
+  color: #4bbfbf;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* TARJETAS */
+.nivel {
+  background: #f1fffd;
+  border-left: 6px solid #3fd0c9;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 12px 0;
+  text-align: center;          /* CENTRADO */
+  display: flex;
+  flex-direction: column;
+  align-items: center;        /* CENTRA TODO */
+}
+
+/* TÍTULOS DE TARJETAS */
+.nivel h3 {
+  color: #179c9c;
+  margin-top: 0;
+}
+
+/* TEXTO */
+.nivel p {
+.tema-titulo {
+  color: #1aa6a6;       /* Turquesa */
+  text-align: center;  /* Centrado */
+  font-size: 22px;     /* Más grande */
+  font-weight: bold;
+  margin: 15px 0 10px;
+}
+
+}
+
+
+/* BOTONES */
+button {
+  width: 100%;
+  padding: 10px;
+  background: #4ddbd3;   /* Turquesa más claro */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #35c2bb;
+}
+
+
+/* OPCIONES DE EJERCICIOS */
+.opciones button {
+  background: #e6fffb;
+  color: #148f8f;
+  border: 2px solid #3fd0c9;
+  font-weight: bold;
+}
+
+.opciones button:hover {
+  background: #3fd0c9;
+  color: white;
+}
+
+/* RESULTADOS */
+.resultado {
+  text-align: center;
+  font-size: 16px;
+}
+
+/* INPUTS (LOGIN Y REGISTRO) */
+.input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 15px;
+  border: 2px solid #3fd0c9;
+  font-size: 15px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #1aa6a6;
+}
+#pregunta {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+#resultado {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+#progreso {
+  font-size: 14px;
+  color: #555;
+}
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+
+  width: 350px;
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+.logo-img {
+  width: 90px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #005ad1;
+}
+
+.link {
+  margin-top: 20px;
+  color: #0072ff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.nivel-card {
+  background: #eef6ff;
+  padding: 18px;
+  border-radius: 18px;
+  margin: 12px 0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.nivel-card:hover {
+  background: #dbeaff;
+}
+.lecciones-contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* CENTRA TODO */
+  gap: 12px;
+}
+
+.leccion {
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+.tema.bloqueado {
+  opacity: 0.5;
+}
+
+.tema.bloqueado button {
+  background: #ccc;
+  cursor: not-allowed;
+}
+.tema-titulo {
+  text-align: center;
+  color: #1aa6a6;
+  font-size: 20px;
+}
+
+.nivel {
+  text-align: center;
+}

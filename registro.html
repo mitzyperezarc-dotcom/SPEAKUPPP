@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - SpeakUp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="Logo.jpeg" class="logo-img">
+
+  <h2>Crear Cuenta</h2>
+  <p class="subtitle">Únete a SpeakUp</p>
+
+  <input id="nombre" type="text" placeholder="Tu nombre">
+  <input id="email" type="email" placeholder="Correo electrónico">
+  <input id="password" type="password" placeholder="Contraseña">
+
+  <button id="btn">Registrarse</button>
+
+  <p class="link" onclick="window.location.href='login.html'">
+    ¿Ya tienes cuenta? Inicia sesión
+  </p>
+
+</div>
+
+<script type="module">
+  import { registrarConNombre } from "./firebase.js";
+
+  const nombreInput = document.getElementById("nombre");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const btn = document.getElementById("btn");
+
+  btn.addEventListener("click", () => {
+    const nombre = nombreInput.value;
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    // Validación básica
+    if (!nombre || !email || !password) {
+      alert("Por favor completa todos los campos 📝");
+      return;
+    }
+
+    registrarConNombre(nombre, email, password)
+      .then(() => {
+        alert("Cuenta creada correctamente ✅");
+        // Redirige directamente a la pantalla de Niveles
+        window.location.href = "niveles.html";
+      })
+      .catch(err => alert("Error: " + err.message));
+  });
+</script>
+
+</body>
+</html>

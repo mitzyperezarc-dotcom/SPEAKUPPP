@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 2.1</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <img src="../Logo.jpeg" class="logo-img">
+
+  <h2>Ejercicio 2.1</h2>
+  <p class="subtitle">Comunicación Efectiva</p>
+
+  <div class="nivel" id="zona-ejercicio"></div>
+
+  <p id="resultado"></p>
+  <p id="progreso"></p>
+
+  <button onclick="window.location.href='tema2_1.html'">Volver</button>
+
+</div>
+
+<script>
+const ejercicios = [
+  {
+    tipo: "quiz",
+    texto: "¿Cuál es un saludo FORMAL?",
+    opciones: ["What's up?", "Good morning", "Hey!"],
+    correcta: 1
+  },
+  {
+    tipo: "dialogo",
+    texto: "Completa la presentación:",
+    dialogo: "I’m Ana, and I ___ as a teacher.",
+    opciones: ["work", "works", "working"],
+    correcta: 0
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Cuál es una despedida CASUAL?",
+    opciones: ["I look forward to our meeting", "Take care!", "It was a pleasure"],
+    correcta: 1
+  },
+  {
+    tipo: "dialogo",
+    texto: "Small talk correcto:",
+    dialogo: "How ___ you been lately?",
+    opciones: ["are", "have", "do"],
+    correcta: 1
+  },
+  {
+    tipo: "quiz",
+    texto: "¿Qué se usa más en comunicación informal?",
+    opciones: ["I am", "Do not", "I'm"],
+    correcta: 2
+  }
+];
+
+let actual = 0;
+let puntos = 0;
+
+function cargarEjercicio() {
+  const e = ejercicios[actual];
+  const zona = document.getElementById("zona-ejercicio");
+
+  let contenido = `<p id="pregunta">${e.texto}</p>`;
+
+  if (e.tipo === "dialogo") {
+    contenido += `<p><strong>${e.dialogo}</strong></p>`;
+  }
+
+  e.opciones.forEach((op, i) => {
+    contenido += `<button onclick="responder(${i})">${op}</button>`;
+  });
+
+  zona.innerHTML = contenido;
+
+  document.getElementById("resultado").innerText = "";
+  document.getElementById("progreso").innerText =
+    `Ejercicio ${actual + 1} de ${ejercicios.length}`;
+}
+
+function responder(opcion) {
+  const correcta = ejercicios[actual].correcta;
+  const res = document.getElementById("resultado");
+
+  if (opcion === correcta) {
+    puntos++;
+    res.innerText = "✅ ¡Correcto!";
+    res.style.color = "green";
+    new Audio("../sonidos/correcto.mp3").play();
+  } else {
+    res.innerText = "❌ Incorrecto";
+    res.style.color = "red";
+    new Audio("../sonidos/error.mp3").play();
+  }
+
+  actual++;
+
+  setTimeout(() => {
+    if (actual < ejercicios.length) {
+      cargarEjercicio();
+    } else {
+      mostrarFinal();
+    }
+  }, 1000);
+}
+
+function mostrarFinal() {
+  document.getElementById("zona-ejercicio").innerHTML = `
+    <h3>🎉 Resultado Final</h3>
+    <p>Obtuviste <strong>${puntos}</strong> de ${ejercicios.length}</p>
+    <p>${puntos >= 4 ? "¡Excelente comunicación!" : "Sigue practicando 💪"}</p>
+  `;
+}
+
+cargarEjercicio();
+</script>
+
+</body>
+</html>
